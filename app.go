@@ -31,10 +31,15 @@ type App struct {
 }
 
 func NewApp(kernel app.Kernel, opts ...Option) (*App, error) {
+	debug, err := env.GetBoolOr("APP_DEBUG", false)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get APP_DEBUG: %w", err)
+	}
 	app := &App{
 		kernel:       kernel,
 		config:       config.NewRepository(),
 		components:   kv.NewLinkedMap[string, app.Component](),
+		debug:        debug,
 		root:         env.Get("APP_ROOT"),
 		wd:           env.Get("APP_WD"),
 		storagePath:  env.GetOr("APP_STORAGE_PATH", filepath.Join(env.Get("APP_ROOT"), "storage")),
