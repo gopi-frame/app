@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"path/filepath"
 
+	containerimpl "github.com/gopi-frame/container"
+
 	"github.com/gopi-frame/config/parser/yaml"
 
 	"github.com/gopi-frame/config/provider/file"
@@ -11,8 +13,8 @@ import (
 	"github.com/gopi-frame/collection/kv"
 
 	"github.com/gopi-frame/config"
-	"github.com/gopi-frame/container"
 	"github.com/gopi-frame/contract/app"
+	"github.com/gopi-frame/contract/container"
 	"github.com/gopi-frame/contract/repository"
 	"github.com/gopi-frame/env"
 )
@@ -42,6 +44,7 @@ func NewApp(opts ...Option) (*App, error) {
 		return nil, fmt.Errorf("failed to get APP_DEBUG: %w", err)
 	}
 	app := &App{
+		Container:    containerimpl.New[any](),
 		config:       config.NewRepository(),
 		components:   kv.NewLinkedMap[string, app.Component](),
 		debug:        debug,
