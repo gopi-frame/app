@@ -30,13 +30,12 @@ type App struct {
 	booted       bool
 }
 
-func NewApp(kernel app.Kernel, opts ...Option) (*App, error) {
+func NewApp(opts ...Option) (*App, error) {
 	debug, err := env.GetBoolOr("APP_DEBUG", false)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get APP_DEBUG: %w", err)
 	}
 	app := &App{
-		kernel:       kernel,
 		config:       config.NewRepository(),
 		components:   kv.NewLinkedMap[string, app.Component](),
 		debug:        debug,
@@ -52,6 +51,10 @@ func NewApp(kernel app.Kernel, opts ...Option) (*App, error) {
 		}
 	}
 	return app, nil
+}
+
+func (app *App) SetKernel(kernel app.Kernel) {
+	app.kernel = kernel
 }
 
 func (app *App) Kernel() app.Kernel {
@@ -137,6 +140,9 @@ func (app *App) Unregister(component app.Component) error {
 }
 
 func (app *App) Run() error {
+	if app.kernel == nil {
+		return fmt.Errorf("kernel not set")
+	}
 	app.components.Lock()
 	for _, component := range app.components.Values() {
 		if err := component.Boot(); err != nil {
