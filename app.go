@@ -61,6 +61,9 @@ func NewApp(opts ...Option) (*App, error) {
 			return nil, err
 		}
 	}
+	app.Set("app", app)
+	app.Set("config", app.config)
+	app.Set("kernel", app.kernel)
 	return app, nil
 }
 
