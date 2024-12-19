@@ -3,7 +3,6 @@ package app
 import (
 	"fmt"
 	"path/filepath"
-	"strings"
 
 	"github.com/gopi-frame/config/parser/yaml"
 
@@ -106,12 +105,9 @@ func (app *App) ConfigPath() string {
 	return app.configPath
 }
 
-func (app *App) Configure(configFile string) error {
-	ext := filepath.Ext(configFile)
-	basename := filepath.Base(configFile)
-	key := strings.TrimSuffix(basename, ext)
-	provider := file.NewFileProvider(filepath.Join(app.configPath, configFile))
-	if err := app.config.LoadAt(key, provider, app.configParser); err != nil {
+func (app *App) Configure(name string) error {
+	provider := file.NewFileProvider(filepath.Join(app.configPath, fmt.Sprintf("%s.%s", name, app.configType)))
+	if err := app.config.LoadAt(name, provider, app.configParser); err != nil {
 		return err
 	}
 	return nil
