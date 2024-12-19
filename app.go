@@ -3,6 +3,11 @@ package app
 import (
 	"fmt"
 	"path/filepath"
+	"strings"
+
+	"github.com/gopi-frame/config/parser/yaml"
+
+	"github.com/gopi-frame/config/provider/file"
 
 	"github.com/gopi-frame/collection/kv"
 
@@ -28,6 +33,7 @@ type App struct {
 	resourcePath string
 	configPath   string
 	booted       bool
+	configParser repository.Parser
 }
 
 func NewApp(opts ...Option) (*App, error) {
@@ -44,6 +50,7 @@ func NewApp(opts ...Option) (*App, error) {
 		storagePath:  env.GetOr("APP_STORAGE_PATH", filepath.Join(env.Get("APP_ROOT"), "storage")),
 		resourcePath: env.GetOr("APP_RESOURCE_PATH", filepath.Join(env.Get("APP_ROOT"), "resource")),
 		configPath:   env.GetOr("APP_CONFIG_PATH", filepath.Join(env.Get("APP_ROOT"), "config")),
+		configParser: yaml.NewYamlParser(),
 	}
 	for _, opt := range opts {
 		if err := opt.Apply(app); err != nil {
@@ -95,6 +102,17 @@ func (app *App) ResourcePath() string {
 
 func (app *App) ConfigPath() string {
 	return app.configPath
+}
+
+func (app *App) Configure(configFile string) error {
+	ext := filepath.Ext(configFile)
+	basename := filepath.Base(configFile)
+	key := strings.TrimSuffix(basename, ext)
+	provider := file.NewFileProvider(filepath.Join(app.configPath, configFile))
+	if err := app.config.LoadAt(key, provider, app.configParser); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (app *App) Register(component app.Component) error {

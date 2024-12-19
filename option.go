@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/gopi-frame/contract"
+	"github.com/gopi-frame/contract/repository"
 )
 
 type Option = contract.Option[*App]
@@ -54,6 +55,13 @@ func WithResourcePath(path string) OptionFunc {
 func WithConfigPath(path string) OptionFunc {
 	return func(app *App) error {
 		app.configPath = path
+		return nil
+	}
+}
+
+func WithConfigParser(parser repository.Parser) OptionFunc {
+	return func(app *App) error {
+		app.configParser = parser
 		return nil
 	}
 }
