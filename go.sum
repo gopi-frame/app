@@ -1,0 +1,10 @@
+github.com/gopi-frame/collection v0.0.0-20241216072420-d8ce5c0c9d4d h1:jXPkGJIbuR1kGlq5FFNj8+uIjfRe023oUyAeOKMt87E=
+github.com/gopi-frame/collection v0.0.0-20241216072420-d8ce5c0c9d4d/go.mod h1:pjQzWBTSrdv3nigz+VpkO9sbAsTOypMtEAyBn+PqCv0=
+github.com/gopi-frame/container v0.0.0-20241028033441-f879efd0b4e3 h1:iNaw6+vm1gdjP3EMcEbghJ6JjyvmD0s9QVgFCIC0IW8=
+github.com/gopi-frame/container v0.0.0-20241028033441-f879efd0b4e3/go.mod h1:zbJVDioHjqYpz79Xp2LuKQwr0fuj94PwC19jLtBpEcA=
+github.com/gopi-frame/contract v0.0.0-20241218023404-d91f3dd400af h1:m8lQWKP7xJlI7yet4icdnBe+N21I5pd1E1+Nsjw3pOc=
+github.com/gopi-frame/contract v0.0.0-20241218023404-d91f3dd400af/go.mod h1:M2ifC/cM/ki1lAqe45W3UlXsCxDVR9U0+eyr/IJAP48=
+github.com/gopi-frame/contract/exception v0.0.0-20241218023404-d91f3dd400af h1:o4sZCmxh7xDyFdaPiR4yFZSiiUsnEs6DKZSkKMq975g=
+github.com/gopi-frame/contract/exception v0.0.0-20241218023404-d91f3dd400af/go.mod h1:VGwiCNZfvjXMVpdhoNwfSv1kcHg++tISmR618GWWvU4=
+github.com/gopi-frame/exception v0.0.0-20240903061238-ba7913087614 h1:UD2zn5HwszIaOWiC2xXxj8lwbb7fbcl5uEo9Uvnfuc8=
+github.com/gopi-frame/exception v0.0.0-20240903061238-ba7913087614/go.mod h1:IOrbC4fPmAXhSklaju5P4bHkedigdeU1/CJkge3Sm6A=
