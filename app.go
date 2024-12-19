@@ -33,6 +33,7 @@ type App struct {
 	resourcePath string
 	configPath   string
 	booted       bool
+	configType   string
 	configParser repository.Parser
 }
 
@@ -50,6 +51,7 @@ func NewApp(opts ...Option) (*App, error) {
 		storagePath:  env.GetOr("APP_STORAGE_PATH", filepath.Join(env.Get("APP_ROOT"), "storage")),
 		resourcePath: env.GetOr("APP_RESOURCE_PATH", filepath.Join(env.Get("APP_ROOT"), "resource")),
 		configPath:   env.GetOr("APP_CONFIG_PATH", filepath.Join(env.Get("APP_ROOT"), "config")),
+		configType:   env.GetOr("APP_CONFIG_TYPE", "yaml"),
 		configParser: yaml.NewYamlParser(),
 	}
 	for _, opt := range opts {

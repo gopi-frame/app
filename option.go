@@ -59,6 +59,13 @@ func WithConfigPath(path string) OptionFunc {
 	}
 }
 
+func WithConfigType(configType string) OptionFunc {
+	return func(app *App) error {
+		app.configType = configType
+		return nil
+	}
+}
+
 func WithConfigParser(parser repository.Parser) OptionFunc {
 	return func(app *App) error {
 		app.configParser = parser
