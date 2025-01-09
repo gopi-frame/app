@@ -19,6 +19,12 @@ import (
 	"github.com/gopi-frame/env"
 )
 
+const (
+	AppComponentName    = "app"
+	ConfigComponentName = "config"
+	KernelComponentName = "kernel"
+)
+
 type App struct {
 	container.Container[any]
 	kernel     app.Kernel
@@ -61,9 +67,9 @@ func NewApp(opts ...Option) (*App, error) {
 			return nil, err
 		}
 	}
-	app.Set("app", app)
-	app.Set("config", app.config)
-	app.Set("kernel", app.kernel)
+	app.Set(AppComponentName, app)
+	app.Set(ConfigComponentName, app.config)
+	app.Set(KernelComponentName, app.kernel)
 	return app, nil
 }
 
